@@ -20,18 +20,17 @@ def calculate_angle(a, b, c):
     return angle
 
 
+def reduceResolution():
+    cap.set(3, 480)
+    cap.set(4, 360)
+
+
 # VIDEO FEED
-cap = cv2.VideoCapture('2.mp4')
+cap = cv2.VideoCapture('ExerciseSamples/top_crunch.mp4')
 
 # change resolution
+# reduceResolution()
 
-
-def make_480p():
-    cap.set(3, 640)
-    cap.set(4, 480)
-
-
-make_480p()
 # Curl counter variables
 counter = 0
 stage = None
