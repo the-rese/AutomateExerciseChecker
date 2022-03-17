@@ -145,8 +145,8 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
         if cv2.waitKey(10) & 0xFF == ord('q'):
             # if 100 < squat_angle < 160
-            messagebox.showinfo("Exercise Summary",
-                                "Exercise:Squats\nReps:3\nRemarks: Squats not deep enough.")
+            messagebox.show("Exercise Summary",
+                            "Exercise:Squats\nReps:3\nRemarks: Squats not deep enough.")
 
             break
 

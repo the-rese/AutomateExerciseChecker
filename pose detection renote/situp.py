@@ -57,28 +57,28 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
             # Get coordinates
             # A good sit-up
-            shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
-                        landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
-            elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
-                     landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
-            wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
-                     landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+            shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,
+                        landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
+            hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,
+                   landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
+            knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,
+                    landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
 
             # Calculate angle
-            angle = calculate_angle(shoulder, elbow, wrist)
+            angle = calculate_angle(shoulder, hip, knee)
 
             # Visualize angle
             cv2.putText(image, str(angle),
-                        tuple(np.multiply(elbow, [640, 480]).astype(int)),
+                        tuple(np.multiply(hip, [640, 480]).astype(int)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,
                                                         255, 255), 2, cv2.LINE_AA
                         )
 
-            # Curl counter logic
-            if angle > 160:
-                stage = "down"
-            if angle < 30 and stage == 'down':
+            # Sit-up counter logic
+            if angle < 40:
                 stage = "up"
+            if angle > 100 and stage == 'up':
+                stage = "down"
                 counter += 1
                 print(counter)
 
