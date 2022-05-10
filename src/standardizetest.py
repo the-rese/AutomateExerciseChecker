@@ -7,7 +7,7 @@ class StandardTest():
     __gender = None
     __instance = None
     __exercise = None
-    __numOfReps = None
+    __num_of_reps = None
 
     def __init__(self) -> None:
         pass
@@ -18,8 +18,8 @@ class StandardTest():
     def setExercise(self, exercise):
         self.__exercise = exercise
 
-    def setNumReps(self, numOfReps):
-        self.__numOfReps = numOfReps
+    def setNumReps(self, num_of_reps):
+        self.__num_of_reps = num_of_reps
 
     def getStandardizeTest(self):
         result = None
@@ -38,7 +38,7 @@ class StandardTest():
             else:
                 self.__instance = MalePushups()
 
-        result = self.__instance.getResults(self.__numOfReps)
+        result = self.__instance.getResults(self.__num_of_reps)
         return result
 
     def printClass(self):

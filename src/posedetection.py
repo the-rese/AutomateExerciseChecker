@@ -31,30 +31,32 @@ class PoseDetect():
 
         return img
 
-    def extractLandmarks(self, frame, draw=True):
-        self.mp_drawing.draw_landmarks(frame, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
-                                       self.mp_drawing.DrawingSpec(
-                                           color=(245, 117, 66), thickness=2, circle_radius=2),
-                                       self.mp_drawing.DrawingSpec(
-                                           color=(255, 255, 255), thickness=2, circle_radius=2)
-                                       )
+    def extractLandmarks(self):
         return self.results.pose_landmarks.landmark
 
-    def visualizeAngle(self, frame, angle, location):
-        cv2.putText(frame, str("{:.2f}".format(angle))+' degrees', tuple(np.multiply(location, [1080, 608]).astype(int)),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255), 2, cv2.LINE_AA)
+    def visualizeAngle(self, frame, title_angle_1, angle_1, title_angle_2, angle_2, title_angle_3, angle_3):
+        cv2.rectangle(frame, (450, 0), (1080, 55), (8, 136, 19), -1)
+        self.__putText(frame, title_angle_1, (500, 12))
+        self.__putText(frame, str("{:.2f}".format(
+            angle_1))+" deg", (465, 45), 2)
+        self.__putText(frame, title_angle_2, (700, 12))
+        self.__putText(frame, str("{:.2f}".format(
+            angle_2))+" deg", (670, 45), 2)
+        self.__putText(frame, title_angle_3, (920, 12))
+        self.__putText(frame, str("{:.2f}".format(
+            angle_3))+" deg", (880, 45), 2)
 
     def visualizeRepCounter(self, frame, title, count, stage):
-        cv2.rectangle(frame, (0, 0), (320, 50), (245, 117, 16), -1)
+        cv2.rectangle(frame, (0, 0), (350, 55), (245, 117, 16), -1)
         # Exercise performed
         self.__putText(frame, 'EXERCISE', (15, 12))
-        self.__putText(frame, title, (10, 40), 2)
+        self.__putText(frame, title, (10, 45), 2)
         # Rep data
         self.__putText(frame, 'REPS', (180, 12))
-        self.__putText(frame, str(count), (180, 40), 2)
+        self.__putText(frame, str(count), (180, 45), 2)
         # Stage data
-        self.__putText(frame, 'STAGE', (230, 12))
-        self.__putText(frame, stage, (230, 40), 2)
+        self.__putText(frame, 'STAGE', (240, 12))
+        self.__putText(frame, stage, (240, 45), 2)
 
     # PRIVATE METHODS
     def __putText(self, frame, text, location, fscale=None):
@@ -63,7 +65,7 @@ class PoseDetect():
                         fscale, (255, 255, 255), 2, cv2.LINE_AA)
         else:
             cv2.putText(frame, text, location, cv2.FONT_HERSHEY_PLAIN,
-                        0.5, (0, 0, 0), 1, cv2.LINE_AA)
+                        1, (0, 0, 0), 1, cv2.LINE_AA)
 
     def printClass(self):
         print("Can call pose detect class")

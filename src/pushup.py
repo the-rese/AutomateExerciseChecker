@@ -41,7 +41,7 @@ class PushupClass():
                 image = self.__pose.makeDetection(frame)
 
                 try:
-                    landmarks = self.__pose.extractLandmarks(image)
+                    landmarks = self.__pose.extractLandmarks()
 
                     # Get coordinates
                     # A good pushup should aim to bend the elbows at or below a 90 degree angle. Since the basis is the elbow angle, both the wide and close grip pushup variations can be accounted for
@@ -84,7 +84,7 @@ class PushupClass():
                         left_elbow, left_shoulder, left_hip)
 
                     self.__pose.visualizeAngle(
-                        image, elbow_angle, left_elbow)
+                        image, "ARM ANGLE", self.__arm_angle, "ELBOW ANGLE", elbow_angle, "HIP ANGLE", self.__hip_angle)
                     self.__pushupCounter(elbow_angle)
 
                 except:
@@ -125,7 +125,6 @@ class PushupClass():
         return self.__result_list
 
     # private and helper functions
-
     def __pushupCounter(self, angle):
         if angle < 150:
             self.__stage = "down"
@@ -138,9 +137,8 @@ class PushupClass():
                 self.__max_angle = angle
             self.__stage = "up"
             self.__counter += 1
-            # print(self.__counter)
-            self.__rep_list.append(
-                (round(self.__max_angle, 2), round(self.__min_angle, 2), self.__isBadPushup()))
+            self.__rep_list.append((round(self.__max_angle, 2), round(
+                self.__min_angle, 2), self.__isBadPushup()))
             self.__max_angle = 160
             self.__min_angle = 150
 
@@ -169,23 +167,3 @@ class PushupClass():
             return 1
         else:
             return 0
-
-    # def getTotalNumReps(self):
-    #     return self.__counter
-
-    # def getTotalBadRep(self):
-    #     return self.__angle.getTotalBadReps()
-
-    # def getStandardizeTest(self):
-    #     self.__st.setGender('male')
-    #     self.__st.setNumReps(self.__counter)
-    #     st = self.__st.getStandardizeTest()
-    #     return st
-
-    # def getROM(self):
-    #     rom = self.__rangeOfMotion()
-    #     return rom
-
-    # def getAveAngle(self):
-    #     ave_min_depth = self.__angle.getAveMinDepth()
-    #     return ave_min_depth

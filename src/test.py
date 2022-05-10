@@ -1,4 +1,4 @@
-from exercise import PushupClass
+from pushup import PushupClass
 from openpyxl.workbook import Workbook
 import pandas as pd
 
