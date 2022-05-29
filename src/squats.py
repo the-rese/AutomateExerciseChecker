@@ -17,6 +17,9 @@ class SquatClass():
     __cap = None
     __stage = None
     __counter = 0
+    __back_angle = 0
+    __min_angle = 150
+    __max_angle = 160
     __rep_list = []
     __result_list = []
 
@@ -72,6 +75,8 @@ class SquatClass():
                     # Calculate angles (elbows, hips, and arms)
                     squat_angle = self.__angle.calculateAngle(
                         left_hip, left_knee, left_heel)
+                    self.__back_angle = self.__angle.calculateAngle(
+                        left_knee, left_hip, left_shoulder)
 
                     # self.__pose.visualizeAngle(
                     #     image, "ARM ANGLE", self.__arm_angle, "ELBOW ANGLE", elbow_angle, "HIP ANGLE", self.__hip_angle)
@@ -116,11 +121,19 @@ class SquatClass():
 
     # private and helper functions
     def __SquatCounter(self, angle):
-        if angle < 100:
+        if angle < 150:
             self.__stage = "down"
-        if angle > 170 and self.__stage == 'down':
+            if angle < self.__min_angle:
+                self.__min_angle = angle
+        if angle > 160 and self.__stage == 'down':
+            if angle > self.__max_angle:
+                self.__max_angle = angle
             self.__stage = "up"
             self.__counter += 1
+            self.__rep_list.append((round(self.__max_angle, 2), round(
+                self.__min_angle, 2), self.__isBadSquat()))
+            self.__max_angle = 160
+            self.__min_angle = 150
 
     def __rangeOfMotion(self):
         self.__angle.calculateAveAngle(self.__rep_list)
@@ -139,11 +152,8 @@ class SquatClass():
         # too shallow range of motion (min angle > 100), bad Squat
         if(self.__min_angle > 100):
             return 1
-        # hips raised too high (hip angle < 150)
-        elif(self.__hip_angle < 150):
-            return 1
-        # elbows pointed out too much (arm_angle > 85)
-        elif(self.__arm_angle == 85):
+        # back bending forward too much (bend angle < 70), bad squat
+        elif(self.__back_angle < 70):
             return 1
         else:
             return 0
