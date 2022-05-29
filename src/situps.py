@@ -17,6 +17,10 @@ class SitupClass():
     __cap = None
     __stage = None
     __counter = 0
+    __knee_angle = 0
+    __body_angle = 0
+    __min_angle = 70
+    __max_angle = 80
     __rep_list = []
     __result_list = []
 
@@ -46,12 +50,18 @@ class SitupClass():
                            landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
                     knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,
                             landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
+                    foot = [landmarks[mp_pose.PoseLandmark.RIGHT_FOOT.value].x,
+                            landmarks[mp_pose.PoseLandmark.RIGHT_FOOT.value].y]
                     # Calculate angles (elbows, hips, and arms)
                     angle = self.__angle.calculateAngle(
                         shoulder, hip, knee)
+                    self.__knee_angle = self.__angle.calculateAngle(
+                        hip, knee, foot)
+                    self.__body_angle = self.__angle.calculateAngle(
+                        shoulder, hip, foot)
 
-                    # self.__pose.visualizeAngle(
-                    #     image, "ARM ANGLE", self.__arm_angle, "ELBOW ANGLE", elbow_angle, "HIP ANGLE", self.__hip_angle)
+                    self.__pose.visualizeAngle(
+                        image, "SITUPS ANGLE", angle, "KNEE ANGLE", self.__knee_angle, "BODY ANGLE", self.__body_angle)
                     self.__SitupCounter(angle)
 
                 except:
@@ -93,11 +103,19 @@ class SitupClass():
 
     # private and helper functions
     def __SitupCounter(self, angle):
-        if angle < 40:
+        if angle < 70:
             self.__stage = "up"
-        if angle > 100 and self.__stage == 'up':
+            if angle < self.__min_angle:
+                self.__min_angle = angle
+        if angle > 80 and self.__stage == 'up':
+            if angle > self.__max_angle:
+                self.__max_angle = angle
             self.__stage = "down"
             self.__counter += 1
+            self.__rep_list.append((round(self.__max_angle, 2), round(
+                self.__min_angle, 2), self.__isBadSitup()))
+            self.__max_angle = 70
+            self.__min_angle = 80
 
     def __rangeOfMotion(self):
         self.__angle.calculateAveAngle(self.__rep_list)
@@ -113,14 +131,14 @@ class SitupClass():
         return output
 
     def __isBadSitup(self):
-        # too shallow range of motion (min angle > 100), bad Situp
-        if(self.__min_angle > 100):
+        # too shallow range of motion (min angle > 50), bad situp
+        if(self.__min_angle > 50):
             return 1
-        # hips raised too high (hip angle < 150)
-        elif(self.__hip_angle < 150):
+        # knees should be between 45 and 90 degrees
+        elif(self.__knee_angle < 45 or self.__knee_angle > 90):
             return 1
-        # elbows pointed out too much (arm_angle > 85)
-        elif(self.__arm_angle == 85):
+        # shoulders should not touch the ground (body angle < 180)
+        elif(self.__body_angle >= 179):
             return 1
         else:
             return 0
