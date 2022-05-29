@@ -41,6 +41,3 @@ class Angle():
 
     def getTotalBadReps(self):
         return self.__total_bad_rep
-
-    def printClass(self):
-        print("Can call angle class")
