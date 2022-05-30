@@ -79,8 +79,8 @@ class SquatClass():
                     self.__back_angle = self.__angle.calculateAngle(
                         left_knee, left_hip, left_shoulder)
 
-                    # self.__pose.visualizeAngle(
-                    #     image, "ARM ANGLE", self.__arm_angle, "ELBOW ANGLE", elbow_angle, "HIP ANGLE", self.__hip_angle)
+                    self.__pose.visualizeAngle(
+                        image, "SQUAT ANGLE", squat_angle, "BACK ANGLE", self.__back_angle, "NONE", 0)
                     self.__SquatCounter(squat_angle)
 
                 except:

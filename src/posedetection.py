@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-mp_pose = mp.solutions.pose
 
 
 class PoseDetect():
@@ -14,7 +13,6 @@ class PoseDetect():
         self.min_detection_confidence = min_detection_confidence
         self.min_tracking_confidence = min_tracking_confidence
 
-        self.mp_drawing = mp.solutions.drawing_utils
         self.mp_pose = mp.solutions.pose
         self.pose = self.mp_pose.Pose(self.static_img_mode, self.upper_body_only,
                                       self.smooth_landmarks, self.min_detection_confidence, self.min_tracking_confidence)
@@ -66,6 +64,3 @@ class PoseDetect():
         else:
             cv2.putText(frame, text, location, cv2.FONT_HERSHEY_PLAIN,
                         1, (0, 0, 0), 1, cv2.LINE_AA)
-
-    def printClass(self):
-        print("Can call pose detect class")
