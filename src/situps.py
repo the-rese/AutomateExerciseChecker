@@ -24,12 +24,13 @@ class SitupClass():
     __rep_list = []
     __result_list = []
 
-    def __init__(self, videoname) -> None:
+    def __init__(self, videoname, gender) -> None:
         # create object or instance of each module
         self.__pose = PoseDetect()
         self.__angle = Angle()
         self.__st = StandardTest()
-        self.__st.setExercise('Situps')
+        self.__st.setExercise('situps')
+        self.__st.setGender(gender)
         # set __cap variable
         self.__cap = cv2.VideoCapture(videoname)
 
@@ -87,9 +88,8 @@ class SitupClass():
         total_bad_reps = self.__angle.getTotalBadReps()
         correct_reps = self.__counter - total_bad_reps
 
-        # sets the gender and number of reps to get the outcome
+        # sets number of reps to get the outcome
         # based on the standardized test for Physical Education
-        self.__st.setGender('male')
         self.__st.setNumReps(self.__counter)
         st = self.__st.getStandardizeTest()
 

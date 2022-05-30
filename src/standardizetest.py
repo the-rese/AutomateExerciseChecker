@@ -23,7 +23,7 @@ class StandardTest():
 
     def getStandardizeTest(self):
         result = None
-        if (self.__gender == 'female'):
+        if (self.__gender == 'f' or self.__gender == 'F'):
             if (self.__exercise == 'squats'):
                 self.__instance = FemaleSquats()
             elif (self.__exercise == 'situps'):

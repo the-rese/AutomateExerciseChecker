@@ -1,9 +1,9 @@
-from pushups import PushupClass
-from openpyxl.workbook import Workbook
-import pandas as pd
+# from pushups import PushupClass
+# from openpyxl.workbook import Workbook
+# import pandas as pd
 import os
 
-FOLDER_PATH = r'C:\\Users\\Therese Bolabola\\OneDrive\\Desktop\\ExerciseTracker\\pushupvideos'
+FOLDER_PATH = r'C:\\Users\\tsg\\Documents\\GitHub\\AutomateExerciseChecker\\test\\crunches'
 
 name_list = []
 counter_list = []
@@ -16,6 +16,7 @@ ave_depth_list = []
 def exerciseRater(dir, name_list, counter_list, correct_rep_list, st_list, rom_list, ave_depth_list):
     fileNames = os.listdir(dir)
     for fileName in fileNames:
+        gender = fileName[0]
         # create object or instance for Pushup Class
         filepath = os.path.abspath(os.path.join(dir, fileName))
         pushup_instance = PushupClass(filepath)
