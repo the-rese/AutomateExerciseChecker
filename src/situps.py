@@ -41,7 +41,6 @@ class SitupClass():
 
                 try:
                     landmarks = self.__pose.extractLandmarks(image)
-
                     # Get coordinates
                     shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
                                 landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
@@ -49,24 +48,25 @@ class SitupClass():
                            landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
                     knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,
                             landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
-                    foot = [landmarks[mp_pose.PoseLandmark.LEFT_FOOT.value].x,
-                            landmarks[mp_pose.PoseLandmark.LEFT_FOOT.value].y]
+                    # no value
+                    # foot = [landmarks[mp_pose.PoseLandmark.LEFT_FOOT.value].x,
+                    #         landmarks[mp_pose.PoseLandmark.LEFT_FOOT.value].y]
+                    # print(landmarks[mp_pose.PoseLandmark.LEFT_FOOT.value])
 
-                    print(shoulder)
-                    # Calculate angles (elbows, hips, and arms)
+                    # # Calculate angles (elbows, hips, and arms)
                     angle = self.__angle.calculateAngle(
                         shoulder, hip, knee)
-                    self.__knee_angle = self.__angle.calculateAngle(
-                        hip, knee, foot)
-                    self.__body_angle = self.__angle.calculateAngle(
-                        shoulder, hip, foot)
+                    # self.__knee_angle = self.__angle.calculateAngle(
+                    #     hip, knee, foot)
+                    # self.__body_angle = self.__angle.calculateAngle(
+                    #     shoulder, hip, foot)
 
-                    print(angle)
-                    print(self.__knee_angle)
-                    print(self.__body_angle)
+                    # print(angle)
+                    # print(self.__knee_angle)
+                    # print(self.__body_angle)
 
-                    self.__pose.visualizeAngle(
-                        image, "SITUPS ANGLE", angle, "KNEE ANGLE", self.__knee_angle, "BODY ANGLE", self.__body_angle)
+                    # self.__pose.visualizeAngle(
+                    #     image, "SITUPS ANGLE", angle, "KNEE ANGLE", self.__knee_angle, "BODY ANGLE", self.__body_angle)
                     self.__SitupCounter(angle)
 
                 except:
