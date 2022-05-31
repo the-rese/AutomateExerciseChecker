@@ -13,18 +13,16 @@ class PushupClass():
     __angle = None
     __st = None
 
-    # variables exclusively for this class only
-    __cap = None
-    __stage = None
-    __counter = 0
-    __min_angle = 150
-    __max_angle = 160
-    __hip_angle = 0
-    __arm_angle = 0
-    __rep_list = []
-    __result_list = []
-
     def __init__(self, videoname, gender) -> None:
+        # variables for push ups
+        self.__counter = 0
+        self.__stage = None
+        self.__min_angle = 150
+        self.__max_angle = 160
+        self.__hip_angle = 0
+        self.__arm_angle = 0
+        self.__rep_list = []
+        self.__result_list = []
         # create object or instance of each module
         self.__pose = PoseDetect()
         self.__angle = Angle()
@@ -42,7 +40,7 @@ class PushupClass():
                 image = self.__pose.makeDetection(frame)
 
                 try:
-                    landmarks = self.__pose.extractLandmarks()
+                    landmarks = self.__pose.extractLandmarks(image)
 
                     # Get coordinates
                     # A good pushup should aim to bend the elbows at or below a 90 degree angle. Since the basis is the elbow angle, both the wide and close grip pushup variations can be accounted for

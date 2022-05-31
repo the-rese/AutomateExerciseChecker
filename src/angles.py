@@ -34,10 +34,16 @@ class Angle():
                 self.__total_bad_rep += item[2]
 
     def getAveMinDepth(self):
-        return round(self.__total_min_angle/self.__count_max_angle, 2)
+        try:
+            return round(self.__total_min_angle/self.__count_max_angle, 2)
+        except:
+            return 0
 
     def getAveMaxDepth(self):
-        return round(self.__total_max_angle/self.__count_max_angle, 2)
+        try:
+            return round(self.__total_max_angle/self.__count_max_angle, 2)
+        except:
+            return 0
 
     def getTotalBadReps(self):
         return self.__total_bad_rep

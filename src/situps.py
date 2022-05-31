@@ -13,18 +13,16 @@ class SitupClass():
     __angle = None
     __st = None
 
-    # variables exclusively for this class only
-    __cap = None
-    __stage = None
-    __counter = 0
-    __knee_angle = 0
-    __body_angle = 0
-    __min_angle = 70
-    __max_angle = 80
-    __rep_list = []
-    __result_list = []
-
     def __init__(self, videoname, gender) -> None:
+        # variables for situps
+        self.__stage = None
+        self.__counter = 0
+        self.__knee_angle = 0
+        self.__body_angle = 0
+        self.__min_angle = 70
+        self.__max_angle = 80
+        self.__rep_list = []
+        self.__result_list = []
         # create object or instance of each module
         self.__pose = PoseDetect()
         self.__angle = Angle()
@@ -42,17 +40,19 @@ class SitupClass():
                 image = self.__pose.makeDetection(frame)
 
                 try:
-                    landmarks = self.__pose.extractLandmarks()
+                    landmarks = self.__pose.extractLandmarks(image)
 
                     # Get coordinates
-                    shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,
-                                landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
-                    hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,
-                           landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
-                    knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,
-                            landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
-                    foot = [landmarks[mp_pose.PoseLandmark.RIGHT_FOOT.value].x,
-                            landmarks[mp_pose.PoseLandmark.RIGHT_FOOT.value].y]
+                    shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
+                                landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+                    hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,
+                           landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+                    knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,
+                            landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
+                    foot = [landmarks[mp_pose.PoseLandmark.LEFT_FOOT.value].x,
+                            landmarks[mp_pose.PoseLandmark.LEFT_FOOT.value].y]
+
+                    print(shoulder)
                     # Calculate angles (elbows, hips, and arms)
                     angle = self.__angle.calculateAngle(
                         shoulder, hip, knee)
@@ -60,6 +60,10 @@ class SitupClass():
                         hip, knee, foot)
                     self.__body_angle = self.__angle.calculateAngle(
                         shoulder, hip, foot)
+
+                    print(angle)
+                    print(self.__knee_angle)
+                    print(self.__body_angle)
 
                     self.__pose.visualizeAngle(
                         image, "SITUPS ANGLE", angle, "KNEE ANGLE", self.__knee_angle, "BODY ANGLE", self.__body_angle)

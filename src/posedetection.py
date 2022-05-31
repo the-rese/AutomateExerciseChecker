@@ -13,6 +13,7 @@ class PoseDetect():
         self.min_detection_confidence = min_detection_confidence
         self.min_tracking_confidence = min_tracking_confidence
 
+        self.mp_drawing = mp.solutions.drawing_utils
         self.mp_pose = mp.solutions.pose
         self.pose = self.mp_pose.Pose(self.static_img_mode, self.upper_body_only,
                                       self.smooth_landmarks, self.min_detection_confidence, self.min_tracking_confidence)
@@ -29,7 +30,13 @@ class PoseDetect():
 
         return img
 
-    def extractLandmarks(self):
+    def extractLandmarks(self, frame, draw=True):
+        self.mp_drawing.draw_landmarks(frame, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
+                                       self.mp_drawing.DrawingSpec(
+                                           color=(245, 117, 66), thickness=2, circle_radius=2),
+                                       self.mp_drawing.DrawingSpec(
+                                           color=(255, 255, 255), thickness=2, circle_radius=2)
+                                       )
         return self.results.pose_landmarks.landmark
 
     def visualizeAngle(self, frame, title_angle_1, angle_1, title_angle_2, angle_2, title_angle_3, angle_3):

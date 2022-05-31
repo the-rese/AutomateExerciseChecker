@@ -1,10 +1,11 @@
 from pushups import PushupClass
 from squats import SquatClass
+from situps import SitupClass
 from openpyxl.workbook import Workbook
 import pandas as pd
 import os
 
-FOLDER_PATH = r'C:\\Users\\Therese Bolabola\\OneDrive\\Desktop\\ExerciseTracker\\test\\squats'
+FOLDER_PATH = r'C:\\Users\\Therese Bolabola\\OneDrive\\Desktop\\ExerciseTracker\\test\\idealsitups'
 
 name_list = []
 counter_list = []
@@ -22,11 +23,11 @@ def exerciseRater(dir, name_list, counter_list, correct_rep_list, st_list, rom_l
         filepath = os.path.abspath(os.path.join(dir, fileName))
         # print(fileName)
         # print(filepath)
-        squat_instance = SquatClass(filepath, gender)
+        instance = SitupClass(filepath, gender)
         # test if mediapipe still works
-        squat_instance.rateExercise()
-        squat_instance.summarizeResult()
-        result = squat_instance.getSummary()
+        instance.rateExercise()
+        instance.summarizeResult()
+        result = instance.getSummary()
 
         name_list.append(fileName)
 
@@ -52,7 +53,7 @@ def main():
     df = pd.DataFrame(list(zip(name_list, counter_list, correct_rep_list,
                       st_list, rom_list, ave_depth_list)), columns=columns)
     print(df)
-    out_filename = 'squat-summary.xlsx'
+    out_filename = 'idealsitups-summary.xlsx'
     out_path = 'C:\\Users\\Therese Bolabola\\OneDrive\\Desktop\\ExerciseTracker\\results\\'+out_filename
     df.to_excel(out_path, sheet_name="PE Section")
 

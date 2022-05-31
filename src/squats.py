@@ -13,17 +13,15 @@ class SquatClass():
     __angle = None
     __st = None
 
-    # variables exclusively for this class only
-    __cap = None
-    __stage = None
-    __counter = 0
-    __back_angle = 0
-    __min_angle = 150
-    __max_angle = 160
-    __rep_list = []
-    __result_list = []
-
     def __init__(self, videoname, gender) -> None:
+        # variables for squats
+        self.__stage = None
+        self.__counter = 0
+        self.__back_angle = 0
+        self.__min_angle = 150
+        self.__max_angle = 160
+        self.__rep_list = []
+        self.__result_list = []
         # create object or instance of each module
         self.__pose = PoseDetect()
         self.__angle = Angle()
@@ -41,7 +39,7 @@ class SquatClass():
                 image = self.__pose.makeDetection(frame)
 
                 try:
-                    landmarks = self.__pose.extractLandmarks()
+                    landmarks = self.__pose.extractLandmarks(image)
 
                     # Get coordinates
                     # A good squat requires a depth of around 90 degrees on the knees and a wide stance with the feet wider than shoulder width
