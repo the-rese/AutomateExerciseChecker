@@ -39,6 +39,9 @@ class PoseDetect():
                                        )
         return self.results.pose_landmarks.landmark
 
+    # def extractLandmarks(self):
+    #     return self.results.pose_landmarks.landmark
+
     def visualizeAngle(self, frame, title_angle_1, angle_1, title_angle_2, angle_2, title_angle_3, angle_3):
         cv2.rectangle(frame, (450, 0), (1080, 55), (8, 136, 19), -1)
         self.__putText(frame, title_angle_1, (500, 12))

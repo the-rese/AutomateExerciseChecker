@@ -37,6 +37,7 @@ class SquatClass():
             # exits loop if video has ended
             while(ret):
                 image = self.__pose.makeDetection(frame)
+                # image = self.__pose.makeDetection()
 
                 try:
                     landmarks = self.__pose.extractLandmarks(image)
