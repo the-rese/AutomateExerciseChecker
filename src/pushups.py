@@ -40,8 +40,8 @@ class PushupClass():
                 image = self.__pose.makeDetection(frame)
 
                 try:
-                    landmarks = self.__pose.extractLandmarks(image)
                     # landmarks = self.__pose.extractLandmarks()
+                    landmarks = self.__pose.extractLandmarksDraw(image)
 
                     # Get coordinates
                     # A good pushup should aim to bend the elbows at or below a 90 degree angle. Since the basis is the elbow angle, both the wide and close grip pushup variations can be accounted for

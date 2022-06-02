@@ -30,7 +30,7 @@ class PoseDetect():
 
         return img
 
-    def extractLandmarks(self, frame, draw=True):
+    def extractLandmarksDraw(self, frame, draw=True):
         self.mp_drawing.draw_landmarks(frame, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
                                        self.mp_drawing.DrawingSpec(
                                            color=(245, 117, 66), thickness=2, circle_radius=2),
@@ -39,8 +39,8 @@ class PoseDetect():
                                        )
         return self.results.pose_landmarks.landmark
 
-    # def extractLandmarks(self):
-    #     return self.results.pose_landmarks.landmark
+    def extractLandmarks(self):
+        return self.results.pose_landmarks.landmark
 
     def visualizeAngle(self, frame, title_angle_1, angle_1, title_angle_2, angle_2, title_angle_3, angle_3):
         cv2.rectangle(frame, (450, 0), (1080, 55), (8, 136, 19), -1)
