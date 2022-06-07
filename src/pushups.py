@@ -76,11 +76,11 @@ class PushupClass():
 
                     # Calculate angles (elbows, hips, and arms)
                     elbow_angle = self.__angle.calculateAngle(
-                        left_hand, left_elbow, left_shoulder)
+                        right_hand, right_elbow, right_shoulder)
                     self.__hip_angle = self.__angle.calculateAngle(
-                        left_knee, left_hip, left_shoulder)
+                        right_knee, right_hip, right_shoulder)
                     self.__arm_angle = self.__angle.calculateAngle(
-                        left_elbow, left_shoulder, left_hip)
+                        right_elbow, right_shoulder, right_hip)
 
                     self.__pose.visualizeAngle(
                         image, "ARM ANGLE", self.__arm_angle, "ELBOW ANGLE", elbow_angle, "HIP ANGLE", self.__hip_angle)

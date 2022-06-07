@@ -150,10 +150,10 @@ class SquatClass():
 
     def __isBadSquat(self):
         # too shallow range of motion (min angle > 100), bad Squat
-        if(self.__min_angle > 100):
+        if(self.__min_angle > 90):
             return 1
         # back bending forward too much (bend angle < 70), bad squat
-        elif(self.__back_angle < 70):
+        elif(self.__back_angle < 85):
             return 1
         else:
             return 0

@@ -38,10 +38,9 @@ class SitupClass():
             # exits loop if video has ended
             while(ret):
                 image = self.__pose.makeDetection(frame)
-                # image = self.__pose.makeDetection()
 
                 try:
-                    landmarks = self.__pose.extractLandmarks(image)
+                    landmarks = self.__pose.extractLandmarksDraw(image)
                     # Get coordinates
                     shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
                                 landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
@@ -102,11 +101,11 @@ class SitupClass():
 
     # private and helper functions
     def __SitupCounter(self, angle):
-        if angle < 70:
+        if angle < 50:
             self.__stage = "up"
             if angle < self.__min_angle:
                 self.__min_angle = angle
-        if angle > 80 and self.__stage == 'up':
+        if angle > 60 and self.__stage == 'up':
             if angle > self.__max_angle:
                 self.__max_angle = angle
             self.__stage = "down"

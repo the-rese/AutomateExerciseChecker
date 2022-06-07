@@ -51,7 +51,7 @@ def main():
     df = pd.DataFrame(list(zip(gender_list, name_list, counter_list, correct_rep_list,
                       st_list, rom_list, ave_depth_list)), columns=columns)
     print(df)
-    out_filename = 'situp-demo-summary.xlsx'
+    out_filename = 'situp-new-demo-summary.xlsx'
     out_path = 'C:\\Users\\Therese Bolabola\\OneDrive\\Desktop\\ExerciseTracker\\results\\'+out_filename
     df.to_excel(out_path, sheet_name="PE Section")
 
